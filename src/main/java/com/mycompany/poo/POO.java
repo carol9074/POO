@@ -49,6 +49,7 @@ public class POO {
                             JOptionPane.showMessageDialog(null, "Cpf não existe em nosso banco de dados.");
                         }
                     }
+                    OpcaoUser = 0;
                     while (OpcaoUser != 6) {
                         OpcaoUser = Integer.parseInt(JOptionPane.showInputDialog("1-Atualizar cadastro \n 2-Vizualizar Perfil \n 3- Depositar \n 4-Sacar \n 5-Remover conta \n 6-Sair"));
                         switch (OpcaoUser) {
@@ -57,13 +58,15 @@ public class POO {
                                 JOptionPane.showMessageDialog(null, "Atualização de cadastro.");
                                 JOptionPane.showMessageDialog(null, "Celular atual:" + cadastro.get(j).getCell());
                                 cell = JOptionPane.showInputDialog("Informe o novo celular:");
-                                JOptionPane.showMessageDialog(null, "Celular novo:" + cell);
+                                cadastro.get(j).setCell(cell);
+                                JOptionPane.showMessageDialog(null, "Celular novo:" + cadastro.get(j).getCell());
+                                break;
                             }
                             case 2: {
-                                JOptionPane.showMessageDialog(null, "Nome:" + cadastro.get(j).getNome());
-                                JOptionPane.showMessageDialog(null, "CPF:" + cadastro.get(j).getCpf());
-                                JOptionPane.showMessageDialog(null, "Celular:" + cadastro.get(j).getCell());
-                                JOptionPane.showMessageDialog(null, "Saldo:" + cadastro.get(j).getValor());
+                                for (User ususario : cadastro) {
+                                    JOptionPane.showInputDialog(null, ususario.toString());
+                                }
+                                break;
                             }
                             case 3: {
                                 cadastro.get(j).Depositar();
@@ -74,7 +77,7 @@ public class POO {
                                 break;
                             }
                             case 5: {
-                                cadastro.get(j).Remove();
+                                cadastro.get(j).Remove(cadastro);
                                 break;
                             }
                             case 6: {

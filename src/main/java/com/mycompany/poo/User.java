@@ -1,5 +1,6 @@
 package com.mycompany.poo;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class User {
@@ -84,16 +85,18 @@ public class User {
     }
 
     public float Sacar() {
-        float  saque = 0;
+        float saque = 0;
 
         saque = Float.parseFloat(JOptionPane.showInputDialog("Informe o valor que deseja sacar:"));
         this.valor = this.valor - saque;
-     
+
         return saque;
     }
-    public void Remove(){
-    JOptionPane.showMessageDialog(null, "Conta excluída.");  
-    
+
+    public void Remove(ArrayList<User> cadastro) {
+
+        JOptionPane.showInputDialog("conta excluída");
+
     }
 
     /**
@@ -102,10 +105,11 @@ public class User {
     @Override
     public String toString() {
 
-        return "oi";
+        return "\nNome:" + this.nome
+                + "\nCPF:" + this.cpf
+                + "\nCelular:" + this.cell
+                + "\nSaldo:" + this.valor;
 
     }
-
-  
 
 }
