@@ -93,9 +93,16 @@ public class User {
         return saque;
     }
 
-    public void Remove(ArrayList<User> cadastro) {
-
-        JOptionPane.showInputDialog("conta excluída");
+    public ArrayList<User> Remove(ArrayList<User> cadastro, int pos) {
+       int yes;
+        yes = JOptionPane.showConfirmDialog(null, "Certeza que deseja deletar a conta?", cpf, JOptionPane.YES_NO_OPTION);
+        
+        if(yes == 1){
+            JOptionPane.showMessageDialog(null, "Conta excluída!");
+            cadastro.remove(pos);
+            return cadastro;
+        }       
+        return null;
 
     }
 

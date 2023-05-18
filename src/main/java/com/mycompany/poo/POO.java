@@ -1,5 +1,6 @@
 package com.mycompany.poo;
 
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -12,6 +13,7 @@ public class POO {
         String nome, cpf, cell;
         int id = 0;
         float valor;
+        long num;
 
         while (op != 6) {
             JOptionPane.showMessageDialog(null, "Bem-vindo ao cadastro");
@@ -19,9 +21,24 @@ public class POO {
 
             switch (op) {
                 case 1: {
+                    int op2 = 0;
                     id = id + 1;
                     nome = JOptionPane.showInputDialog("Informe seu nome:");
                     cpf = JOptionPane.showInputDialog("Informe o CPF:");
+                    while (op2 != 2) {
+
+                        if (cpf.length() == 11) {
+                            op2 = 2;
+                            try {
+                                num = Long.parseLong(cpf);
+                                JOptionPane.showMessageDialog(null, "CPF valido!");
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "Informe um CPF válido!");
+                                cpf = JOptionPane.showInputDialog("Informe o CPF:");
+                                op2 = 1;
+                            }
+                        }
+                    }
                     cell = JOptionPane.showInputDialog("Informe o celular:");
                     valor = 0;
                     User usuario = new User(nome, cpf, cell, id, valor);
@@ -31,9 +48,10 @@ public class POO {
                 }
                 case 2: {
                     String cpfSearch;
-                    boolean aux;
+                    boolean aux = false;
                     int j = 0;
                     cpfSearch = JOptionPane.showInputDialog("Informe seu CPF:");
+                    OpcaoUser = 0;
                     for (int i = 0; i < cadastro.size(); i++) {
                         aux = cadastro.get(i).Login(cpfSearch);
                         System.out.println(aux);
@@ -46,10 +64,15 @@ public class POO {
                                     + cadastro.get(j).getNome());
                         }
                         if (i == cadastro.size()) {
-                            JOptionPane.showMessageDialog(null, "Cpf não existe em nosso banco de dados.");
+                            JOptionPane.showMessageDialog(null, "Cpf não existe em nosso banco de dados.");            
+                            OpcaoUser = 6;
                         }
                     }
-                    OpcaoUser = 0;
+                    if (aux == false) {
+                        JOptionPane.showMessageDialog(null, "Cpf não existe.");
+                        OpcaoUser = 6;
+                    }
+
                     while (OpcaoUser != 6) {
                         OpcaoUser = Integer.parseInt(JOptionPane.showInputDialog("1-Atualizar cadastro \n 2-Vizualizar Perfil \n 3- Depositar \n 4-Sacar \n 5-Remover conta \n 6-Sair"));
                         switch (OpcaoUser) {
@@ -77,7 +100,8 @@ public class POO {
                                 break;
                             }
                             case 5: {
-                                cadastro.get(j).Remove(cadastro);
+                                cadastro.remove(j);
+                                OpcaoUser = 6;
                                 break;
                             }
                             case 6: {
@@ -88,6 +112,7 @@ public class POO {
                         }
                     }
                 }
+
             }
         }
 
